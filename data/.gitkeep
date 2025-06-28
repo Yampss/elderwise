@@ -1,0 +1,4 @@
+# Initialize empty data files for ElderWise
+
+# This file ensures the data directory structure is created
+# Individual JSON files will be created as needed by the application
