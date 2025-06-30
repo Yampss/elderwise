@@ -7,19 +7,25 @@ from datetime import datetime
 def setup_page_config():
     """Setup Streamlit page configuration"""
     st.set_page_config(
-        page_title="ElderWise - Connecting Generations",
-        page_icon="🌟",
+        page_title="StoryShare - Share and Discover Stories",
+        page_icon="📚",
         layout="wide",
-        initial_sidebar_state="expanded",
+        initial_sidebar_state="collapsed",
         menu_items={
-            'Get Help': 'https://github.com/elderwise/help',
-            'Report a bug': 'https://github.com/elderwise/issues',
+            'Get Help': 'https://github.com/storyshare/help',
+            'Report a bug': 'https://github.com/storyshare/issues',
             'About': """
-            # ElderWise
-            Connecting generations through storytelling and wisdom sharing.
+            # StoryShare
+            A simple platform for sharing and discovering amazing stories.
             
-            **Version:** 1.0.0
-            **Built with:** Streamlit & Google Gemini AI
+            **Features:**
+            - ✍️ Share your stories with cover photos
+            - 📖 Read stories from the community
+            - 📂 Organize stories by categories
+            - 📱 Mobile-friendly interface
+            
+            **Version:** 2.0.0
+            **Built with:** Streamlit & PostgreSQL
             """
         }
     )
@@ -34,7 +40,8 @@ def setup_directories():
         config.STORIES_DIR,
         config.AUDIO_DIR,
         config.TRANSCRIPTS_DIR,
-        config.USER_DATA_DIR
+        config.USER_DATA_DIR,
+        Path("data/images")  # Add images directory for cover photos
     ]
     
     for directory in directories:
@@ -257,23 +264,6 @@ def show_api_key_setup():
             st.session_state.skip_api_key = True
             st.info("You can still use basic features. Add your API key later for AI features.")
             st.rerun()
-
-def check_ai_availability():
-    """Check if AI features are available"""
-    from src.config import Config
-    from src.ai_engine import AIEngine
-    
-    # Skip if user chose to skip API key
-    if st.session_state.get('skip_api_key', False):
-        return False
-    
-    # Check if API key is set
-    if not Config.get_gemini_api_key():
-        return False
-    
-    # Check if AI engine is ready
-    ai_engine = AIEngine()
-    return ai_engine.is_ready()
 
 def show_connection_request_form(elder_id, elder_name):
     """Show form to request connection with an elder"""
