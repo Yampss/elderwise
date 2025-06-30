@@ -15,48 +15,48 @@ ElderWise is a Streamlit-based application that allows seniors to record and sha
 
 ## Technology Stack
 - **Frontend**: Streamlit (Python web framework)
+- **Backend**: SQLAlchemy with PostgreSQL/SQLite
 - **AI/ML**: Google Gemini API for transcription and analysis
-- **Storage**: File-based JSON storage (no database required)
-- **Audio**: Speech recognition and audio processing
+- **Authentication**: bcrypt with session management
+- **Storage**: Database + file system for audio files
 - **Visualization**: Plotly for charts and analytics
 
 ## Development Guidelines
 
+### Database Operations
+- Use SQLAlchemy models for all database operations
+- Use `get_db_session()` context manager for database transactions
+- Implement proper error handling and rollback
+- Use database relationships for data integrity
+
+### Authentication
+- All pages require authentication except login/register
+- Use session state to store user information
+- Implement role-based access control (elder/seeker/admin)
+- Hash passwords with bcrypt
+
 ### Code Organization
 - `app.py`: Main application entry point
-- `src/`: Core modules (config, data management, AI engine, utilities)
-- `pages/`: Different user interfaces (elder, seeker, community, admin)
-- `data/`: Automatically created data storage directory
+- `src/database.py`: Database models and operations
+- `src/auth.py`: Authentication and user management
+- `src/config.py`: Configuration and environment variables
+- `pages/`: User interface modules
+- `setup_database.py`: Database initialization script
 
-### AI Integration
-- Always check API key availability before using AI features
-- Provide fallbacks when AI services are unavailable
-- Use the AIEngine class for all AI-related functionality
-
-### User Experience
-- Prioritize accessibility (large buttons, clear navigation)
-- Support both seniors and young people with appropriate interfaces
-- Maintain simple, intuitive design patterns
-
-### Data Management
-- Use DataManager class for all data operations
-- Store user data with appropriate privacy controls
-- Implement proper error handling for file operations
+### Deployment Considerations
+- Support both SQLite (development) and PostgreSQL (production)
+- Use environment variables for configuration
+- Implement proper database migrations
+- Handle file storage for audio uploads
+- Support cloud deployment (Heroku, Railway, etc.)
 
 ## Development Best Practices
-- Follow Streamlit best practices for session state management
-- Implement proper form validation and user feedback
-- Use meaningful progress indicators for long operations
-- Provide clear error messages and recovery options
-- Test with different user types and scenarios
-
-## API Usage
-- Google Gemini API for transcription and text analysis
-- Implement rate limiting and error handling
-- Cache results when appropriate to reduce API calls
-- Provide graceful degradation when API is unavailable
-
-## Deployment Considerations
+- Always use database transactions
+- Implement proper error handling
+- Use environment variables for secrets
+- Follow SQLAlchemy best practices
+- Test database operations thoroughly
+- Handle database connection failures gracefully
 - Ensure all dependencies are listed in requirements.txt
 - Set up proper environment variable handling
 - Consider file storage limitations for production

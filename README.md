@@ -3,135 +3,135 @@
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.28+-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI/CD](https://github.com/yourusername/elderwise/workflows/ElderWise%20CI/CD/badge.svg)](https://github.com/yourusername/elderwise/actions)
 
 > **Where wisdom meets wonder, and every story has the power to change a life.** 🌟
 
 ElderWise is an AI-powered platform where seniors share their lifetime of knowledge and experiences with younger generations through intelligent storytelling, transcription, and mentorship matching.
 
-## 🌟 Features
+## 🚀 Quick Start
 
-### For Seniors (Elders)
-- **Voice Recording Interface**: Simple, large-button design for easy story recording
-- **AI-Powered Transcription**: Automatic conversion of speech to text using Google Gemini
-- **Story Organization**: AI categorizes and tags stories for easy discovery
-- **Impact Tracking**: See how your wisdom is helping others
-- **Mentorship Opportunities**: Connect with young people seeking guidance
+### Local Development
+```bash
+git clone <repository-url>
+cd elderwise
+conda create -n elderwise python=3.11 -y
+conda activate elderwise
+pip install -r requirements.txt
 
-### For Young People (Wisdom Seekers)
-- **Smart Discovery**: Search and browse stories by topic, category, or keyword
-- **Personalized Recommendations**: AI suggests relevant stories based on interests
-- **Direct Connections**: Request mentorship from inspiring elders
-- **Learning Paths**: Curated series of related stories for structured learning
-- **Question & Answer**: Ask specific questions to the community
+# Setup database
+python setup_database.py
 
-### AI-Powered Features
-- **Automatic Transcription**: Convert voice recordings to searchable text
-- **Smart Categorization**: AI identifies story topics and themes
-- **Content Analysis**: Extract key insights, emotional tone, and wisdom nuggets
-- **Intelligent Matching**: Connect seekers with relevant mentors
-- **Story Summarization**: Generate compelling summaries for discovery
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8 or higher
-- Anaconda or Miniconda (recommended)
-- Google Gemini API key (free tier available)
-
-### Quick Setup with Conda (Recommended)
-
-1. **Clone or download the project**
-   ```bash
-   git clone <repository-url>
-   cd elderwise
-   ```
-
-2. **Create and activate conda environment**
-   ```bash
-   # Windows
-   conda create -n elderwise python=3.11 -y
-   conda activate elderwise
-   
-   # Or use the setup script
-   setup_env.bat
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Get your Gemini API key**
-   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Sign in with your Google account
-   - Create a new API key
-   - Copy the key for use in the application
-
-5. **Run the application**
-   ```bash
-   streamlit run app.py
-   # Or use the run script
-   run.bat
-   ```
-
-6. **Open your browser**
-   - Navigate to `http://localhost:8501`
-   - Enter your Gemini API key when prompted
-   - Choose your user type (Senior or Wisdom Seeker)
-
-### Alternative Setup (without conda)
-
-If you prefer not to use conda:
-
-1. **Clone or download the project**
-   ```bash
-   git clone <repository-url>
-   cd elderwise
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Get your Gemini API key**
-   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Sign in with your Google account
-   - Create a new API key
-   - Copy the key for use in the application
-
-4. **Run the application**
-   ```bash
-   streamlit run app.py
-   ```
-
-5. **Open your browser**
-   - Navigate to `http://localhost:8501`
-   - Enter your Gemini API key when prompted
-   - Choose your user type (Senior or Wisdom Seeker)
-
-## 🏗️ Project Structure
-
+# Run application
+streamlit run app.py
 ```
-elderwise/
-├── app.py                 # Main Streamlit application
-├── requirements.txt       # Python dependencies
-├── README.md             # This file
-├── src/                  # Core application modules
-│   ├── config.py         # Configuration and settings
-│   ├── data_manager.py   # Data storage and retrieval
-│   ├── ai_engine.py      # AI-powered features
-│   └── utils.py          # Utility functions
-├── pages/                # Application pages
-│   ├── elder_interface.py     # Senior recording interface
-│   ├── discovery_portal.py    # Story discovery for seekers
-│   ├── community.py           # Community features
-│   └── admin_dashboard.py     # Admin management interface
-└── data/                 # Data storage (created automatically)
-    ├── stories/          # Story metadata and transcripts
-    ├── audio/            # Audio recordings
-    ├── users/            # User profiles
+
+### Production Deployment
+
+#### Environment Variables
+```bash
+# Required
+export GEMINI_API_KEY="your_gemini_api_key"
+export DATABASE_URL="postgresql://user:pass@host:port/db"
+
+# Optional
+export ELDERWISE_DEBUG="false"
+export MAX_UPLOAD_SIZE_MB="50"
+```
+
+#### Deploy to Heroku
+```bash
+# Install Heroku CLI, then:
+heroku create your-elderwise-app
+heroku addons:create heroku-postgresql:mini
+heroku config:set GEMINI_API_KEY=your_api_key
+git push heroku main
+```
+
+#### Deploy to Railway
+1. Connect your GitHub repository
+2. Add environment variables in Railway dashboard
+3. Deploy automatically
+
+## 🗄️ Database
+
+### Supported Databases
+- **PostgreSQL** (recommended for production)
+- **SQLite** (default for development)
+
+### Database Setup
+```bash
+# Initialize database with sample data
+python setup_database.py
+
+# Or just create tables
+python -c "from src.database import init_database; init_database()"
+```
+
+### Default Users (after setup_database.py)
+- **Admin**: `admin` / `admin123`
+- **Elder**: `margaret_smith` / `elder123`
+- **Seeker**: `alex_johnson` / `seeker123`
+
+## 🏗️ Architecture
+
+### Technology Stack
+- **Backend**: Python, SQLAlchemy, PostgreSQL
+- **Frontend**: Streamlit
+- **AI**: Google Gemini API
+- **Authentication**: bcrypt, session-based
+- **Storage**: Database + file system (audio files)
+
+### Database Schema
+- **Users**: Authentication and profiles
+- **Stories**: Content and metadata
+- **Story Interactions**: Likes, saves, views
+- **Connections**: Mentor-seeker relationships
+
+## 📊 Features
+
+- ✅ **User Authentication**: Secure registration and login
+- ✅ **Story Recording**: Voice recording with AI transcription
+- ✅ **Story Discovery**: Search and browse with AI categorization
+- ✅ **User Profiles**: Rich profiles for elders and seekers
+- ✅ **Admin Dashboard**: Platform management and analytics
+- 🚧 **Mentorship Connections**: Elder-seeker matching (coming soon)
+- 🚧 **Community Features**: Discussion and interaction (coming soon)
+
+## 🔧 Development
+
+### Running Tests
+```bash
+python test_db.py  # Test database connectivity
+python -m pytest   # Run full test suite (when available)
+```
+
+### Migration Commands
+```bash
+# If using Alembic for migrations
+alembic init migrations
+alembic revision --autogenerate -m "Initial migration"
+alembic upgrade head
+```
+
+## 🚀 Deployment
+
+### Production Checklist
+- [ ] Set up PostgreSQL database
+- [ ] Configure environment variables
+- [ ] Enable HTTPS
+- [ ] Set up monitoring and logging
+- [ ] Configure backup strategy
+- [ ] Test audio upload functionality
+
+### Scaling Considerations
+- Database connection pooling
+- File storage optimization (consider cloud storage)
+- CDN for static assets
+- Load balancing for multiple instances
+
+---
+
+**ElderWise**: Connecting generations through the power of shared stories and wisdom. 🌟
     └── connections.json  # Mentorship connections
 ```
 

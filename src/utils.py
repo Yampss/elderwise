@@ -4,6 +4,26 @@ from pathlib import Path
 import json
 from datetime import datetime
 
+def setup_page_config():
+    """Setup Streamlit page configuration"""
+    st.set_page_config(
+        page_title="ElderWise - Connecting Generations",
+        page_icon="🌟",
+        layout="wide",
+        initial_sidebar_state="expanded",
+        menu_items={
+            'Get Help': 'https://github.com/elderwise/help',
+            'Report a bug': 'https://github.com/elderwise/issues',
+            'About': """
+            # ElderWise
+            Connecting generations through storytelling and wisdom sharing.
+            
+            **Version:** 1.0.0
+            **Built with:** Streamlit & Google Gemini AI
+            """
+        }
+    )
+
 def setup_directories():
     """Create necessary directories for the application"""
     from src.config import Config

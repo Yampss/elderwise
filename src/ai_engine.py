@@ -4,6 +4,7 @@ import re
 from typing import Dict, List, Optional, Any
 import logging
 from datetime import datetime
+import uuid
 
 from src.config import Config
 
@@ -216,6 +217,18 @@ class AIEngine:
         else:
             return "life_skills"  # Default category
     
+    def generate_image_from_text(self, text: str) -> Optional[str]:
+        """Generate an image from text description using AI"""
+        try:
+            # For now, return None as image generation is not implemented
+            # This could be extended with DALL-E or similar services
+            import logging
+            logging.info(f"Image generation requested for text: {text[:50]}...")
+            return None
+        except Exception as e:
+            logging.error(f"Error generating image: {e}")
+            return None
+
     def analyze_emotional_tone(self, transcript: str) -> Dict[str, Any]:
         """Analyze the emotional tone of a story"""
         if not self.is_ready():
